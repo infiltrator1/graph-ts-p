@@ -1,5 +1,5 @@
 import { ApolloServer } from "apollo-server-express";
-import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core';
+import { ApolloServerPluginDrainHttpServer, ApolloServerPluginLandingPageGraphQLPlayground } from 'apollo-server-core';
 import express from "express";
 import jwt from "express-jwt";
 import "reflect-metadata";
@@ -51,7 +51,10 @@ mongoose.connect(dbUrl, {
   
     const server = new ApolloServer({ 
       schema,
-      plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+      plugins: [
+        ApolloServerPluginDrainHttpServer({ httpServer })
+        ApolloServerPluginLandingPageGraphQLPlayground()
+      ],
       introspection: true,
       context: ({req}) => {
         const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress
