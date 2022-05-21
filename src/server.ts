@@ -52,7 +52,7 @@ mongoose.connect(dbUrl, {
     const server = new ApolloServer({ 
       schema,
       plugins: [
-        ApolloServerPluginDrainHttpServer({ httpServer })
+        ApolloServerPluginDrainHttpServer({ httpServer }),
         ApolloServerPluginLandingPageGraphQLPlayground()
       ],
       introspection: true,
