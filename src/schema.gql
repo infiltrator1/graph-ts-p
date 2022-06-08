@@ -3,53 +3,116 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
-input BaseBookInput {
-  author: String!
-  description: String!
-  genre: String!
+input BaseCarouselInput {
+  imageList: [String!]!
+  name: String!
+}
+
+input BaseClothesInput {
+  category: String!
+  image: String!
+  imageList: [String!]!
+  name: String!
+  price: String!
+  refNumber: String!
+  size: [String!]!
+  type: String!
+  typeKids: String
+}
+
+input BaseHomeInput {
   image: String!
   name: String!
 }
 
-type Book {
+type Carousel {
   _id: ObjectId!
-  author: String!
-  description: String!
-  genre: String!
-  image: String!
+  imageList: [String!]!
   name: String!
 }
 
-input BookInput {
+input CarouselInput {
   _id: ObjectId!
-  author: String!
-  description: String!
-  genre: String!
-  image: String!
+  imageList: [String!]!
   name: String!
+}
+
+type Clothes {
+  _id: ObjectId!
+  category: String!
+  image: String!
+  imageList: [String!]!
+  name: String!
+  price: String!
+  refNumber: String!
+  size: [String!]!
+  type: String!
+  typeKids: String!
+}
+
+input ClothesFilterInput {
+  category: [String!]
+  size: [String!]
+  type: String
+  typeKids: [String!]
+}
+
+input ClothesInput {
+  _id: ObjectId!
+  category: String!
+  image: String!
+  imageList: [String!]!
+  name: String!
+  price: String!
+  refNumber: String!
+  size: [String!]!
+  type: String!
+  typeKids: String
 }
 
 input CreateUserInput {
+  adress: String!
+  city: String!
   email: String!
-  firstName: String!
-  lastName: String!
+  name: String!
   password: String!
+  zip: String!
 }
 
 input EditUserInput {
-  books: [BookInput!]!
+  adress: String
+  city: String
+  clothes: [ClothesInput!]!
   email: String
-  firstName: String
-  lastName: String
+  name: String
   password: String
+  zip: String
+}
+
+type Home {
+  _id: ObjectId!
+  image: String!
+  name: String!
+}
+
+input HomeInput {
+  _id: ObjectId!
+  image: String!
+  name: String!
 }
 
 type Mutation {
-  createBook(data: BaseBookInput!): Book!
+  createCarousel(data: BaseCarouselInput!): Carousel!
+  createClothes(data: BaseClothesInput!): Clothes!
+  createHome(data: BaseHomeInput!): Home!
   createUser(data: CreateUserInput!): User!
-  deleteBook(_id: String!): Book!
+  deleteCarousel(_id: String!): Carousel!
+  deleteClothes(_id: String!): Clothes!
+  deleteHome(_id: String!): Home!
   deleteUser(_id: String!): User!
-  editBook(_id: String!, data: BookInput!): Book!
+  editCarousel(_id: String!, data: CarouselInput!): Carousel!
+  editClothes(_id: String!, data: ClothesInput!): Clothes!
+  editHome(_id: String!, data: HomeInput!): Home!
   editUser(_id: String!, data: EditUserInput!): User!
   login(email: String!, password: String!): String!
 }
@@ -58,8 +121,11 @@ type Mutation {
 scalar ObjectId
 
 type Query {
-  book(_id: String!): Book!
-  books: [Book!]!
+  Carousel(_id: String!): Carousel!
+  Home(_id: String!): Home!
+  carousel: [Carousel!]!
+  clothes(filter: ClothesFilterInput!): [Clothes!]!
+  clothesOne(_id: String!): Clothes!
   currentUser: User!
   user(_id: String!): User!
   users: [User!]!
@@ -67,11 +133,13 @@ type Query {
 
 type User {
   _id: ObjectId!
-  books: [Book!]!
+  adress: String!
+  city: String!
+  clothes: [Clothes!]!
   email: String!
-  firstName: String!
   lastLogin: Float!
-  lastName: String!
+  name: String!
   password: String!
   roles: [String!]!
+  zip: String!
 }

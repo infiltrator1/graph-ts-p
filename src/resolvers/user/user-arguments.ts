@@ -1,17 +1,12 @@
 import { MaxLength, MinLength, IsEmail } from "class-validator";
 import { Field, InputType } from "type-graphql";
-//import { Book } from "../../entities/book-entity";
-import { BookInput } from "../book/book-arguments";
+import { ClothesInput } from "../clothes/clothes-arguments";
 
 @InputType()
 export class CreateUserInput {
   @Field()
-  @MaxLength(30)
-  firstName: string;
-
-  @Field()
-  @MaxLength(30)
-  lastName: string;
+  @MaxLength(60)
+  name: string;
 
   @Field()
   @IsEmail()
@@ -20,18 +15,23 @@ export class CreateUserInput {
   @Field()
   @MinLength(6)
   password: string;
+  
+  @Field()
+  adress: string;
+  
+  @Field()
+  city: string;
+  
+  @Field()
+  zip: string;
 }
 
 @InputType()
 export class EditUserInput {
     
   @Field({nullable: true})
-  @MaxLength(30)
-  firstName?: string;
-
-  @Field({nullable: true})
-  @MaxLength(30)
-  lastName?: string;
+  @MaxLength(60)
+  name?: string;
 
   @Field({nullable: true})
   @IsEmail()
@@ -40,7 +40,16 @@ export class EditUserInput {
   @Field({nullable: true})
   @MinLength(6)
   password?: string;
+  
+  @Field({nullable: true})
+  adress?: string;
+  
+  @Field({nullable: true})
+  city?: string;
+  
+  @Field({nullable: true})
+  zip?: string;
 
-  @Field(type => [BookInput])
-  books?: BookInput[];
+  @Field(type => [ClothesInput])
+  clothes?: ClothesInput[];
 }

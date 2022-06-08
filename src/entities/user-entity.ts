@@ -1,7 +1,7 @@
 import { ObjectType, Field, Authorized } from "type-graphql";
 import { prop as Prop, getModelForClass, modelOptions, Severity } from "@typegoose/typegoose";
 import { ObjectId} from "mongodb";
-import { Book } from "./book-entity";
+import { Clothes } from "./clothes-entity";
 import { UserRoles } from "../resolvers/user/user-roles";
 
 @modelOptions({ options: { allowMixed: Severity.ALLOW } })
@@ -14,11 +14,7 @@ export class User {
 
     @Prop({required: true})
     @Field()
-    firstName: string;
-
-    @Prop({required: true})
-    @Field()
-    lastName: string;
+    name: string;
 
     @Prop({required: true})
     @Field()
@@ -28,13 +24,25 @@ export class User {
     @Field()
     password: string;
 
+    @Prop({required: true})
+    @Field()
+    adress: string;
+
+    @Prop({required: true})
+    @Field()
+    city: string;
+
+    @Prop({required: true})
+    @Field()
+    zip: string;
+
     @Field()
     @Prop({default: Date.now()})
     lastLogin?: number;
 
-    @Field(type => [Book])
+    @Field(type => [Clothes])
     @Prop({default: []})
-    books?: Book[];
+    clothes?: Clothes[];
 
     @Authorized([UserRoles.SUPER_ADMIN])
     @Field(type => [String])
